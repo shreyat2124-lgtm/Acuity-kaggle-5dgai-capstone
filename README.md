@@ -39,17 +39,19 @@ The Severity-Assessor agent reads the Extractor's output and matches keywords to
 6. Open your browser and navigate to `http://localhost:8000`.
 
 ## Evaluation Results
+
+```text
 Vignette 1 (quiet_danger):
 Text: My jaw has been aching a bit this morning and my arm feels kind of heavy. I also feel a little sweaty, maybe it's the weather.
 Expected: EMERGENCY | Predicted: EMERGENCY
-Reasoning: The symptoms 'aching jaw', 'heavy arm', and 'sweaty' align with the 'Cardiac Red Flags' skill rule for EMERGENCY, which specifies 'Chest pain radiating to the left arm, jaw' and 'chest pain accompanied by ... diaphoresis (sweating)'.
+Reasoning: The symptoms 'aching jaw', 'heavy arm', and 'sweaty' align with the 'Cardiac Red Flags' skill rule for EMERGENCY...
 Counterfactual: Would become immediately life-threatening if explicit chest pain were also reported.
 Correct: True | Dangerous Miss: False
 ----------------------------------------
 Vignette 2 (quiet_danger):
 Text: I'm just really tired and my back hurts between my shoulder blades, plus a little heartburn that won't go away. Just generally feel off.
 Expected: EMERGENCY | Predicted: EMERGENCY
-Reasoning: The symptom 'back hurts between my shoulder blades' is consistent with cardiac pain radiating to the back, as described in the 'Cardiac Red Flags' criteria for EMERGENCY. The persistent 'a little heartburn that won't go away' further suggests ongoing chest discomfort, contributing to the concern for a potential cardiac event.
+Reasoning: The symptom 'back hurts between my shoulder blades' is consistent with cardiac pain radiating to the back...
 Counterfactual: Would become immediately life-threatening if severe crushing chest pain or acute shortness of breath developed.
 Correct: True | Dangerous Miss: False
 ----------------------------------------
@@ -59,4 +61,5 @@ Total Vignettes: 13
 Overall Accuracy: 15.4%
 Dangerous Miss Rate: 0.0%
 ==========================
-(Note: Evaluation was halted early due to hitting the free tier daily API quota limits of 20 requests/day on the provided key. The system logic and conditionally loaded skill pipelines successfully processed the first two vignettes accurately before rate-limiting triggered.)
+(Note: Evaluation was halted early due to hitting the free tier daily API quota limits on the provided key. The system logic successfully processed the first two vignettes accurately before rate-limiting triggered.)
+```

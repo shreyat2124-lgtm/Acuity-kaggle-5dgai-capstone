@@ -9,6 +9,15 @@ The system relies on an Orchestrator and three independent agents:
 2. **Severity-Assessor Agent**: Evaluates urgency (NORMAL, URGENT, EMERGENCY). It relies on **Agent Skills**, conditionally loading specialized knowledge (e.g., cardiac, respiratory, trauma) from `SKILL.md` files based on the extracted red flag keywords. This prevents context rot by not bloating the LLM prompt with unnecessary data.
 3. **Escalation Agent**: Adds a mandatory counterfactual sentence explaining what exact symptom would elevate the urgency, enabling human verification and building "Effective Trust."
 
+```mermaid
+graph TD
+    A[Raw Patient Input] --> B[Symptom-Extractor Agent]
+    B -->|Structured JSON & Keywords| C[Severity-Assessor Agent]
+    C -->|Dynamically Loads| D[(Agent Skills SKILL.md)]
+    C -->|Priority & Reasoning| E[Escalation Agent]
+    E -->|Appends Counterfactual| F[Final UI / JSON Output]
+```
+
 ### Conditional Skill Loading
 The Severity-Assessor agent reads the Extractor's output and matches keywords to condition families. It then reads the corresponding `SKILL.md` files from disk at runtime and dynamically injects them into the Gemini prompt. This ensures the model only receives the relevant clinical guidelines needed for the specific case.
 

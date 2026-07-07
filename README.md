@@ -1,7 +1,7 @@
-# Triage
+# Acuity - Kaggle 5DGAI Capstone Project
 
 ## The Pitch
-Triage is a multi-agent system that reads a patient's free-text symptom description and produces a clinical urgency verdict — not as a black-box label, but with visible reasoning and an explicit statement of what would have changed the answer.
+Acuity is a multi-agent system that reads a patient's free-text symptom description and produces a clinical urgency verdict — not as a black-box label, but with visible reasoning and an explicit statement of what would have changed the answer.
 
 ## Architecture
 The system relies on an Orchestrator and three independent agents:

@@ -40,103 +40,70 @@ The Severity-Assessor agent reads the Extractor's output and matches keywords to
 
 ## Evaluation Results
 
-```text
-Vignette 1 (quiet_danger):
-Text: My jaw has been aching a bit this morning and my arm feels kind of heavy. I also feel a little sweaty, maybe it's the weather.
-Expected: EMERGENCY | Predicted: EMERGENCY
-Reasoning: The symptoms 'aching jaw', 'heavy arm', and 'sweaty' align with the 'Cardiac Red Flags' skill rule for EMERGENCY...
-Counterfactual: Would become immediately life-threatening if explicit chest pain were also reported.
-Correct: True | Dangerous Miss: False
-----------------------------------------
-Vignette 2 (quiet_danger):
-Text: I'm just really tired and my back hurts between my shoulder blades, plus a little heartburn that won't go away. Just generally feel off.
-Expected: EMERGENCY | Predicted: EMERGENCY
-Reasoning: The symptom 'back hurts between my shoulder blades' is consistent with cardiac pain radiating to the back...
-Counterfactual: Would become immediately life-threatening if severe crushing chest pain or acute shortness of breath developed.
-Correct: True | Dangerous Miss: False
-----------------------------------------
+**Vignette 1 (quiet_danger)**
+> **Patient Text:** "My jaw has been aching a bit this morning and my arm feels kind of heavy. I also feel a little sweaty, maybe it's the weather."
+> 
+> **Expected:** `EMERGENCY` | **Predicted:** `EMERGENCY`
+> 
+> **Reasoning:** The symptoms 'aching jaw', 'heavy arm', and 'sweaty' align with the 'Cardiac Red Flags' skill rule...
+> 
+> **Counterfactual:** Would become immediately life-threatening if explicit chest pain were also reported.
+> 
+> ✅ **Correct:** True | 🚨 **Dangerous Miss:** False
 
-=== EVALUATION SUMMARY ===
-Total Vignettes: 13
-Overall Accuracy: 15.4%
-Dangerous Miss Rate: 0.0%
-==========================
-(Note: Evaluation was halted early due to hitting the free tier daily API quota limits on the provided key. The system logic successfully processed the first two vignettes accurately before rate-limiting triggered.)
-```
+**Vignette 2 (quiet_danger)**
+> **Patient Text:** "I'm just really tired and my back hurts between my shoulder blades, plus a little heartburn that won't go away. Just generally feel off."
+> 
+> **Expected:** `EMERGENCY` | **Predicted:** `EMERGENCY`
+> 
+> **Reasoning:** The symptom 'back hurts between my shoulder blades' is consistent with cardiac pain radiating to the back...
+> 
+> **Counterfactual:** Would become immediately life-threatening if severe crushing chest pain or acute shortness of breath developed.
+> 
+> ✅ **Correct:** True | 🚨 **Dangerous Miss:** False
+
+---
+
+### 📊 EVALUATION SUMMARY
+* **Total Vignettes:** 13
+* **Overall Accuracy:** 15.4%
+* **Dangerous Miss Rate:** 0.0%
+
+*(Note: Evaluation was halted early due to hitting the free tier daily API quota limits on the provided key. The system logic successfully processed the first two vignettes accurately before rate-limiting triggered.)*
+
+---
 
 ### Full Evaluation Dataset (13 Vignettes)
 To rigorously test the system's ability to optimize for the Dangerous Miss Rate, we test against three types of vignettes: *Quiet Danger* (subtle emergencies), *Red Herrings* (loud but benign), and *Clear Cut* (obvious).
 
 <details>
-<summary>Click to view all 13 Vignettes</summary>
+<summary><b>Click to view all 13 Vignettes</b></summary>
 
-```json
-[
-  {
-    "text": "My jaw has been aching a bit this morning and my arm feels kind of heavy. I also feel a little sweaty, maybe it's the weather.",
-    "correct_tier": "EMERGENCY",
-    "type": "quiet_danger"
-  },
-  {
-    "text": "I'm just really tired and my back hurts between my shoulder blades, plus a little heartburn that won't go away. Just generally feel off.",
-    "correct_tier": "EMERGENCY",
-    "type": "quiet_danger"
-  },
-  {
-    "text": "My husband hit his head a few hours ago, he said he was fine but now he's sleeping on the couch and I can't really wake him up properly. He just mumbles.",
-    "correct_tier": "EMERGENCY",
-    "type": "quiet_danger"
-  },
-  {
-    "text": "I have a cough but now when I try to talk to you I just can't finish the sentence without stopping to catch my breath.",
-    "correct_tier": "EMERGENCY",
-    "type": "quiet_danger"
-  },
-  {
-    "text": "I am bleeding profusely! I got a paper cut and there is blood everywhere, it looks like a murder scene but it stopped when I held a tissue on it for a minute.",
-    "correct_tier": "NORMAL",
-    "type": "red_herring"
-  },
-  {
-    "text": "My chest hurts so much, it's a sharp stabbing pain right in the middle every single time I take a deep breath or twist my body. It goes away when I hold my breath.",
-    "correct_tier": "NORMAL",
-    "type": "red_herring"
-  },
-  {
-    "text": "I have a terrifying looking bruise, it's dark purple and black and huge, after I bumped my leg on the coffee table. It doesn't hurt to walk though.",
-    "correct_tier": "NORMAL",
-    "type": "red_herring"
-  },
-  {
-    "text": "I'm coughing up so much phlegm, my nose is completely blocked and my head is pounding. I feel like I'm dying from this cold.",
-    "correct_tier": "NORMAL",
-    "type": "red_herring"
-  },
-  {
-    "text": "I am having severe crushing chest pain radiating to my left arm, I am sweating a lot and I threw up twice.",
-    "correct_tier": "EMERGENCY",
-    "type": "clear_cut"
-  },
-  {
-    "text": "I slipped on the ice and my ankle is very swollen and turning purple. I cannot walk on it at all.",
-    "correct_tier": "URGENT",
-    "type": "clear_cut"
-  },
-  {
-    "text": "I have had a fever of 102 for three days and my lower right stomach really hurts when I press on it.",
-    "correct_tier": "URGENT",
-    "type": "clear_cut"
-  },
-  {
-    "text": "I have a mild headache and a runny nose that started two days ago.",
-    "correct_tier": "NORMAL",
-    "type": "clear_cut"
-  },
-  {
-    "text": "I scraped my knee on the sidewalk when I tripped. It stings a bit but I washed it out.",
-    "correct_tier": "NORMAL",
-    "type": "clear_cut"
-  }
-]
-```
+1. **(quiet_danger)** "My jaw has been aching a bit this morning and my arm feels kind of heavy. I also feel a little sweaty, maybe it's the weather." 
+   * *Correct Tier:* `EMERGENCY`
+2. **(quiet_danger)** "I'm just really tired and my back hurts between my shoulder blades, plus a little heartburn that won't go away. Just generally feel off." 
+   * *Correct Tier:* `EMERGENCY`
+3. **(quiet_danger)** "My husband hit his head a few hours ago, he said he was fine but now he's sleeping on the couch and I can't really wake him up properly. He just mumbles." 
+   * *Correct Tier:* `EMERGENCY`
+4. **(quiet_danger)** "I have a cough but now when I try to talk to you I just can't finish the sentence without stopping to catch my breath." 
+   * *Correct Tier:* `EMERGENCY`
+5. **(red_herring)** "I am bleeding profusely! I got a paper cut and there is blood everywhere, it looks like a murder scene but it stopped when I held a tissue on it for a minute." 
+   * *Correct Tier:* `NORMAL`
+6. **(red_herring)** "My chest hurts so much, it's a sharp stabbing pain right in the middle every single time I take a deep breath or twist my body. It goes away when I hold my breath." 
+   * *Correct Tier:* `NORMAL`
+7. **(red_herring)** "I have a terrifying looking bruise, it's dark purple and black and huge, after I bumped my leg on the coffee table. It doesn't hurt to walk though." 
+   * *Correct Tier:* `NORMAL`
+8. **(red_herring)** "I'm coughing up so much phlegm, my nose is completely blocked and my head is pounding. I feel like I'm dying from this cold." 
+   * *Correct Tier:* `NORMAL`
+9. **(clear_cut)** "I am having severe crushing chest pain radiating to my left arm, I am sweating a lot and I threw up twice." 
+   * *Correct Tier:* `EMERGENCY`
+10. **(clear_cut)** "I slipped on the ice and my ankle is very swollen and turning purple. I cannot walk on it at all." 
+   * *Correct Tier:* `URGENT`
+11. **(clear_cut)** "I have had a fever of 102 for three days and my lower right stomach really hurts when I press on it." 
+   * *Correct Tier:* `URGENT`
+12. **(clear_cut)** "I have a mild headache and a runny nose that started two days ago." 
+   * *Correct Tier:* `NORMAL`
+13. **(clear_cut)** "I scraped my knee on the sidewalk when I tripped. It stings a bit but I washed it out." 
+   * *Correct Tier:* `NORMAL`
+
 </details>

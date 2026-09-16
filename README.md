@@ -1,6 +1,6 @@
 # Acuity - Kaggle 5DGAI Capstone Project
 
-## The Pitch
+
 Acuity is a multi-agent system that reads a patient's free-text symptom description and produces a clinical urgency verdict — not as a black-box label, but with visible reasoning and an explicit statement of what would have changed the answer.
 
 ## Architecture
